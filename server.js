@@ -10,7 +10,7 @@ app.set("views", path.join(__dirname, "views"));
 
 let headlinesData = [];
 
-// Webhook endpoint
+// Webhook
 app.post("/webhook", (req, res) => {
     const { headline } = req.body;
 
@@ -33,7 +33,7 @@ app.post("/webhook", (req, res) => {
     res.status(200).send("Received");
 });
 
-// Render headlines
+// show headlines
 app.get("/", (req, res) => {
     res.render("index", { headlines: headlinesData });
 });
