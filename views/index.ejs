@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI News Headlines</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { margin-bottom: 10px; }
+        .headline {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+        .source {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Realtime AI News Headlines from WION</h1>
+
+    <% if (headlines.length === 0) { %>
+        <p>No headlines received yet.</p>
+    <% } else { %>
+        <% headlines.forEach(h => { %>
+            <div class="headline">
+                <strong><%= h.headline %></strong><br>
+                <span class="source">Source: WION <%= h.source %> | Time: <%= h.time %></span>
+            </div>
+        <% }) %>
+    <% } %>
+</body>
+</html>
