@@ -43,8 +43,8 @@ project/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/ai-news-scraper.git
-cd ai-news-scraper
+git clone https://github.com/archakNath/AI-News-Heading-Scrapper
+cd AI-News-Heading-Scrapper
 ```
 
 ### 2. Install Node.js Dependencies
