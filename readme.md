@@ -1,152 +1,129 @@
-# 📰 AI News Scraper & Realtime Dashboard
 
-This project automatically scrapes **AI-related news headlines** from major tech websites and displays them in a real-time web dashboard. It uses a Python script for scraping and a Node.js server with EJS to display the data.
+# 📰 AI News Scraper & Real-Time Web Dashboard
+
+This project is a Python + Node.js-based system that scrapes AI-related headlines from top tech news websites and streams them live to a real-time web dashboard using WebSockets.
 
 ---
 
-## 🚀 Features
+## 📌 Features
 
-- ✅ Scrapes AI-related news from:
-  - [WION Technology](https://www.wionews.com/technology)
-  - [BBC Innovation](https://www.bbc.com/innovation)
+- 🔎 Scrapes AI-related news from:
+  - [WION](https://www.wionews.com/technology)
+  - [BBC](https://www.bbc.com/innovation)
   - [Bloomberg Technology](https://www.bloomberg.com/technology)
-  - [DD News Science & Tech](https://ddnews.gov.in/en/category/science-tech/)
-- ✅ Detects AI-related keywords in headlines
-- ✅ Extracts headline, URL, source, image, and timestamp
-- ✅ Sends news to a local webhook (`http://localhost:3000/webhook`)
-- ✅ Stores all entries in `headlines.log`
-- ✅ Displays headlines in a responsive EJS dashboard
-- ✅ Avoids duplicates (even after restart)
+  - [DD News](https://ddnews.gov.in/en/category/science-tech/)
+- 📡 Real-time updates using **Socket.IO**
+- 🧠 Filters only AI-related headlines using simple NLP logic
+- 🖼️ Displays images with fallback placeholders
+- 📝 Stores headlines locally in `headlines.log`
+- 🌐 Beautiful responsive web dashboard with EJS
+- 🔄 Refreshes the UI in real-time when new data arrives via webhook
 
 ---
 
-## 📁 Project Structure
+## 📂 Project Structure
 
 ```
-AI-News-Scraper/
-│
-├── scrapper.py             # Python script for scraping and sending data
-├── server.js               # Node.js server (webhook + UI)
-├── qr.js                   # Scan for mobile access
+AI-News-Heading-Scraper/
+├── scrapper.py             # Python script for scraping all sources
+├── server.js               # Node.js Express server with Socket.IO
 ├── views/
-│   └── index.ejs           # EJS HTML template
-├── headlines.log           # Persistent log of all headlines
+│   └── index.ejs           # Real-time EJS frontend
+├── public/                 # Static JS/CSS if needed
+├── headlines.log           # Local log of all received headlines
 ├── package.json            # Node.js dependencies
-└── README.md               # Project documentation
+└── README.md               # This documentation
 ```
 
 ---
 
-## 🔧 Requirements
+## 🔧 Prerequisites
 
-### Python
-
-```bash
-pip install requests beautifulsoup4 urllib3
-```
-
-### Node.js
-
-```bash
-npm install express ejs
-```
+- Python 3.x
+- Node.js (v14+ recommended)
+- `pip` & `npm` package managers
 
 ---
 
-## ⚙️ Setup & Run
+## ⚙️ Setup Instructions
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/archakNath/AI-News-Heading-Scrapper
 cd AI-News-Heading-Scrapper
 ```
 
-### 2. Start Node.js server
+### 2. Install Node.js Dependencies
+
+```bash
+npm install express ejs socket.io
+```
+
+### 3. Run the Node.js Server
 
 ```bash
 node server.js
 ```
 
-Runs at: [http://localhost:3000](http://localhost:3000)
+Visit the dashboard at:  
+👉 http://localhost:3000
 
-### 3. Start the Python scraper
+### 4. Install Python Requirements
+
+```bash
+pip install requests beautifulsoup4 urllib3
+```
+
+### 5. Run the Python Scraper
 
 ```bash
 python scrapper.py
 ```
 
-The scraper runs every 60 seconds and sends AI-related headlines to the local server.
+This will:
+- Continuously scrape from all four sources every 60 seconds
+- Detect AI-related headlines
+- Send new headlines to your server via `/webhook`
 
 ---
 
-## 🌐 Dashboard
+## 🌐 Web Dashboard
 
-Visit in browser:
-
-```
-http://localhost:3000
-```
-
-You’ll see:
-- 📰 Headline (linked)
-- 📸 Image preview (or placeholder)
-- 🌍 Source (WION, BBC, Bloomberg, DD News)
-- ⏱️ Timestamp
-
-The dashboard is mobile responsive ✅
+- Built with **EJS**
+- Automatically updates in real-time using **Socket.IO**
+- Mobile responsive and image-friendly
+- Displays source, time, and fallback placeholder if image is missing
 
 ---
 
-## 📤 Sample Webhook Payload
+## 📦 Example Webhook Payload
 
 ```json
 {
-  "headline": "OpenAI launches GPT-5",
-  "url": "https://www.bbc.com/news/articles/openai-gpt5",
+  "headline": "AI helps doctors detect rare disease faster",
+  "url": "https://example.com/news",
   "source": "BBC",
-  "image": "https://bbc.com/image.jpg",
-  "time": "12/07/2025, 09:15:30 PM"
+  "time": "12/07/2025, 10:19:35 PM",
+  "image": "https://example.com/image.jpg"
 }
 ```
 
 ---
 
-## 🧠 Optional Improvements
+## 💡 Future Enhancements
 
-- 💾 Store headlines in MongoDB or SQLite
-- 🔍 Add frontend search or filters by source/date
-- 🧠 NLP-based topic categorization
-- 🌐 Deploy with Render / Railway / Vercel
-- 📱 Enable real-time updates with WebSockets
-
----
-
-## 📲 Access from Mobile
-
-To view on another device (e.g., smartphone):
-
-1. Get your computer’s IP:
-
-   ```bash
-   ipconfig  # Windows
-   ifconfig  # Mac/Linux
-   ```
-
-2. Make sure both devices are on the same Wi-Fi
-3. Visit:
-
-   ```
-   http://<your-laptop-ip>:3000
-   ```
+- 🌍 Add global news aggregators (e.g., TechCrunch, Reuters AI, etc.)
+- 📊 Search & filter UI (by source/date/keyword)
+- 🧠 Use NLP/ML to auto-summarize headlines
+- 💾 Add MongoDB or SQLite for persistent DB storage
+- ☁️ Deploy full-stack project using Render, Vercel or Railway
 
 ---
 
 ## 📄 License
 
-MIT License  
-You’re free to use, modify, and distribute this project with attribution.
+This project is licensed under the MIT License.  
+Feel free to fork, modify, and contribute!
 
----
-
-**Made with ❤️ by [Archak Nath](https://github.com/archakNath)**
+> Created with ❤️ by [@archakNath](https://github.com/archakNath)

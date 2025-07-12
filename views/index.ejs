@@ -124,6 +124,49 @@
             </div>
         <% }) %>
     <% } %>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on("new-headline", (h) => {
+            const container = document.createElement("div");
+            container.className = "headline";
+
+            const image = document.createElement("img");
+            image.src = h.image || '';
+            image.alt = "news image";
+            image.onerror = function () {
+                this.onerror = null;
+                this.src = 'https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg';
+            };
+
+            const content = document.createElement("div");
+            content.className = "headline-content";
+
+            const link = document.createElement("a");
+            link.href = h.url;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = h.headline;
+
+            const source = document.createElement("span");
+            source.className = "source";
+            source.textContent = `Source: ${h.source} | Scraped: ${h.time}`;
+
+            content.appendChild(link);
+            content.appendChild(source);
+            container.appendChild(image);
+            container.appendChild(content);
+
+            const firstHeadline = document.body.querySelector(".headline");
+            if (firstHeadline) {
+                document.body.insertBefore(container, firstHeadline);
+            } else {
+                document.body.appendChild(container);
+            }
+        });
+    </script>
 </body>
 
 </html>
