@@ -1,21 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>AI News Headlines</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .headline {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            background-color: #ffffff;
+            padding: 15px;
+            margin: 10px auto;
+            max-width: 900px;
+            border-left: 6px solid #007acc;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            gap: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .headline:hover {
+            transform: scale(1.01);
+        }
+
+        .headline img {
+            width: 100%;
+            max-width: 160px;
+            height: auto;
+            aspect-ratio: 3 / 2;
+            object-fit: cover;
+            border-radius: 5px;
+            flex-shrink: 0;
+        }
+
+        .headline-content {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .headline-content a {
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007acc;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .headline-content a:hover {
+            text-decoration: underline;
+        }
+
+        .source {
+            display: block;
+            font-size: 14px;
+            color: #555;
+        }
+
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            .headline {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .headline img {
+                max-width: 100%;
+            }
+
+            .headline-content a {
+                font-size: 16px;
+            }
+
+            .source {
+                font-size: 13px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Realtime AI News Headlines from WION</h1>
+    <h1>Realtime AI News Headlines</h1>
 
     <% if (headlines.length === 0) { %>
         <p>No headlines received yet.</p>
     <% } else { %>
         <% headlines.forEach(h => { %>
             <div class="headline">
-                <strong><%= h.headline %></strong><br>
-                <span class="source">Source: WION <%= h.source %> | Time: <%= h.time %></span>
+                <img src="<%= h.image || '' %>" alt="news image"
+                    onerror="this.onerror=null;this.src='https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg';">
+                <div class="headline-content">
+                    <a href="<%= h.url %>" target="_blank" rel="noopener noreferrer">
+                        <%= h.headline %>
+                    </a>
+                    <span class="source">Source: <%= h.source %> | Scraped: <%= h.time %></span>
+                </div>
             </div>
         <% }) %>
     <% } %>
 </body>
+
 </html>
